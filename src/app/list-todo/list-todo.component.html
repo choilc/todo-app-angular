@@ -1,0 +1,14 @@
+<div class="list-wrap">
+  <form
+    (submit)="addTodo(addBox.value); $event.preventDefault(); addBox.value = ''"
+  >
+    <input #addBox id="add-box" />
+  </form>
+
+  <div *ngIf="todos.length > 0">
+    <ul class="list-todo" *ngFor="let todo of todos">
+      <app-item-todo [todo]="todo"></app-item-todo>
+    </ul>
+  </div>
+  <div *ngIf="todos.length === 0">No data</div>
+</div>

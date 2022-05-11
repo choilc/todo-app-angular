@@ -1,0 +1,12 @@
+<li class="item-todo">
+  <input type="checkbox" />
+  <div class="todo" (dblclick)="onEdit(todo.id)">
+    {{ todo.name }}
+    <div class="edit-todo" *ngIf="editing === todo.id">
+      <form (submit)="handleEdit(todo.id, editTodo.value); editing = null">
+        <input #editTodo type="text" [(ngModel)]="todo.name" name="todo.name" />
+      </form>
+    </div>
+  </div>
+  <button type="button" (click)="deleteTodo(todo.id)">x</button>
+</li>
