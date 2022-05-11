@@ -1,14 +1,22 @@
 <div class="list-wrap">
-  <form
-    (submit)="addTodo(addBox.value); $event.preventDefault(); addBox.value = ''"
-  >
-    <input #addBox id="add-box" />
-  </form>
+  <app-add-todo (newAddTodo)="addTodo($event)"></app-add-todo>
 
-  <div *ngIf="todos.length > 0">
-    <ul class="list-todo" *ngFor="let todo of todos">
-      <app-item-todo [todo]="todo"></app-item-todo>
+  <div *ngIf="lenghtAllTodo > 0">
+    <ul class="list-todo">
+      <app-item-todo
+        *ngFor="let todo of todos"
+        [id]="todo.id"
+        [name]="todo.name"
+        [completed]="todo.completed"
+        (newEditTodo)="handleEdit($event)"
+        (newDeleteTodo)="deleteTodo($event)"
+        (newCompleteTodo)="completeTodo($event)"
+      ></app-item-todo>
     </ul>
+    <app-controll-tab
+      (newHandleActive)="handleActive($event)"
+      [activeTab]="activeTab"
+      [todoCounter]="todos.length"
+    ></app-controll-tab>
   </div>
-  <div *ngIf="todos.length === 0">No data</div>
 </div>

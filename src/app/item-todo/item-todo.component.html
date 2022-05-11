@@ -1,12 +1,20 @@
 <li class="item-todo">
-  <input type="checkbox" />
-  <div class="todo" (dblclick)="onEdit(todo.id)">
-    {{ todo.name }}
-    <div class="edit-todo" *ngIf="editing === todo.id">
-      <form (submit)="handleEdit(todo.id, editTodo.value); editing = null">
-        <input #editTodo type="text" [(ngModel)]="todo.name" name="todo.name" />
+  <input type="checkbox" [checked]="completed" (change)="handleComplete(id)" />
+  <div class="todo" (dblclick)="onEdit()">
+    <span class="text-todo" [class.completed]="completed" *ngIf="!isEdit">{{
+      name
+    }}</span>
+    <div class="edit-todo" *ngIf="isEdit">
+      <form (submit)="handleEdit(id, editTodo.value); isEdit = false">
+        <input
+          #editTodo
+          type="text"
+          [(ngModel)]="name"
+          name="todo.name"
+          (blur)="isEdit = false"
+        />
       </form>
     </div>
   </div>
-  <button type="button" (click)="deleteTodo(todo.id)">x</button>
+  <button type="button" (click)="deleteTodo(id)" class="btn-delete">x</button>
 </li>

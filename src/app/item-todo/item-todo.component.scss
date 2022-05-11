@@ -1,0 +1,48 @@
+.item-todo {
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: 20px auto 20px;
+  align-items: center;
+  gap: 10px;
+  padding: 0 20px;
+  border-bottom: 1px solid #f5f5f5;
+  min-height: 50px;
+  .todo {
+    .edit-todo {
+      width: 100%;
+      input {
+        display: block;
+        height: 50px;
+        width: 100%;
+        outline: none;
+        border: 1px solid #999;
+        padding: 0 10px;
+        font-size: 18px;
+      }
+    }
+    .text-todo {
+      display: inline-block;
+      padding: 10px;
+      font-size: 18px;
+    }
+    .completed {
+      text-decoration: line-through;
+      color: #888;
+    }
+  }
+  .btn-delete {
+    display: none;
+    border: none;
+    color: red;
+    background-color: transparent;
+    font-size: 20px;
+    cursor: pointer;
+    &:hover {
+      background-color: #f1f1f1;
+      border-radius: 3px;
+    }
+  }
+  &:hover .btn-delete {
+    display: block;
+  }
+}

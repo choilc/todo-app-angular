@@ -36,4 +36,15 @@ export class TodoService {
     });
     this.storageService.addTodo(newTodos);
   }
+
+  completeTodo(id: number): void {
+    const list: Todo[] = this.storageService.getTodos();
+    const newTodos = list.map((t) => {
+      if (t.id === id) {
+        return { ...t, completed: !t.completed };
+      }
+      return t;
+    });
+    this.storageService.addTodo(newTodos);
+  }
 }

@@ -1,0 +1,25 @@
+.controll-tab {
+  display: grid;
+  grid-template-columns: 100px auto;
+  padding: 10px 20px;
+  background-color: #fafafa;
+  align-items: center;
+  .tab-list {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-content: center;
+    gap: 10px;
+    .tab-item {
+      padding: 2px 8px;
+      border-radius: 3px;
+      border: 1px solid transparent;
+      &:hover {
+        cursor: pointer;
+        border-color: #ccc;
+      }
+      &.actived {
+        border-color: orange;
+      }
+    }
+  }
+}

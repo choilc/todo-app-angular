@@ -1,5 +1,5 @@
 import { TodoService } from './../todo.service';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { getRandomId, Todo } from '../todo';
 
 @Component({
@@ -9,21 +9,14 @@ import { getRandomId, Todo } from '../todo';
 })
 export class ListTodoComponent implements OnInit {
   todos: Todo[] = [];
-  editing: number | null = null;
-  @ViewChild('editTodo', { static: false })
-  editTodoElement!: ElementRef<HTMLInputElement>;
+  lenghtAllTodo: number = 0;
+  activeTab: string = 'all';
 
   constructor(private todoService: TodoService) {}
 
   ngOnInit(): void {
     this.getTodos();
-  }
-
-  onEdit(id: number): void {
-    this.editing = id;
-    setTimeout(() => {
-      this.editTodoElement.nativeElement.focus();
-    }, 0);
+    this.lenghtAllTodo = this.todoService.getTodo().length;
   }
 
   addTodo(todo: string): void {
@@ -33,7 +26,18 @@ export class ListTodoComponent implements OnInit {
   }
 
   getTodos(): void {
-    this.todos = this.todoService.getTodo();
+    const listTodo = this.todoService.getTodo();
+    switch (this.activeTab) {
+      case 'all':
+        this.todos = listTodo;
+        break;
+      case 'active':
+        this.todos = listTodo.filter((todo) => !todo.completed);
+        break;
+      default:
+        this.todos = listTodo.filter((todo) => todo.completed);
+        break;
+    }
   }
 
   deleteTodo(id: number): void {
@@ -41,7 +45,24 @@ export class ListTodoComponent implements OnInit {
     this.todoService.deleteTodo(id);
   }
 
-  handleEdit(id: number, todo: string): void {
-    this.todoService.handleEdit(id, todo);
+  handleEdit(valueEdit: { id: number; value: string }): void {
+    this.todoService.handleEdit(valueEdit.id, valueEdit.value);
+  }
+
+  completeTodo(id: number): void {
+    const newTodos = this.todos.map((todo) => {
+      if (todo.id === id) {
+        return { ...todo, completed: !todo.completed };
+      }
+      return todo;
+    });
+    this.todos = [...newTodos];
+    this.todoService.completeTodo(id);
+    this.getTodos();
+  }
+
+  handleActive(tab: string) {
+    this.activeTab = tab;
+    this.getTodos();
   }
 }

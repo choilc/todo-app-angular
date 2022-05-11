@@ -1,0 +1,13 @@
+<div class="controll-tab">
+  <div class="counter">{{ todoCounter }} items left</div>
+  <div class="tab-list">
+    <div
+      class="tab-item"
+      [class.actived]="tab === activeTab"
+      *ngFor="let tab of tabs"
+      (click)="handleActive(tab)"
+    >
+      {{ tab }}
+    </div>
+  </div>
+</div>

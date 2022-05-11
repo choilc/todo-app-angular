@@ -1,0 +1,10 @@
+<form
+  (submit)="addTodo(addBox.value); $event.preventDefault(); addBox.value = ''"
+>
+  <input
+    #addBox
+    id="add-box"
+    autocomplete="off"
+    placeholder="What needs to be done?"
+  />
+</form>
