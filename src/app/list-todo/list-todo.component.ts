@@ -23,6 +23,7 @@ export class ListTodoComponent implements OnInit {
     const newTodo = new Todo(getRandomId(), todo, false);
     this.todos.push(newTodo);
     this.todoService.addTodo(todo);
+    this.lenghtAllTodo++;
   }
 
   getTodos(): void {
@@ -43,6 +44,7 @@ export class ListTodoComponent implements OnInit {
   deleteTodo(id: number): void {
     this.todos = this.todos.filter((todo) => todo.id !== id);
     this.todoService.deleteTodo(id);
+    this.lenghtAllTodo--;
   }
 
   handleEdit(valueEdit: { id: number; value: string }): void {
