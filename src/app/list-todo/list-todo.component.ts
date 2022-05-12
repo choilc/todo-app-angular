@@ -1,4 +1,4 @@
-import { TodoService } from './../todo.service';
+import { TodoService } from '../services/todo.service';
 import { Component, OnInit } from '@angular/core';
 import { getRandomId, Todo } from '../todo';
 
@@ -12,6 +12,7 @@ export class ListTodoComponent implements OnInit {
   lenghtAllTodo: number = 0;
   activeTab: string = 'all';
   completedAll: boolean = false;
+  lengthCompleted: number = 0;
 
   constructor(private todoService: TodoService) {}
 
@@ -19,12 +20,19 @@ export class ListTodoComponent implements OnInit {
     this.getTodos();
     this.lenghtAllTodo = this.todoService.getTodo().length;
     this.setCheckAll();
+    this.setLengthCompleted();
+  }
+
+  setLengthCompleted(): void {
+    this.lengthCompleted = this.todoService
+      .getTodo()
+      .filter((todo) => todo.completed).length;
   }
 
   setCheckAll() {
     this.completedAll =
       this.lenghtAllTodo > 0 &&
-      !this.todos.find((todo) => todo.completed === false);
+      !this.todoService.getTodo().find((todo) => todo.completed === false);
   }
 
   addTodo(todo: string): void {
@@ -55,6 +63,7 @@ export class ListTodoComponent implements OnInit {
     this.todoService.deleteTodo(id);
     this.lenghtAllTodo--;
     this.setCheckAll();
+    this.setLengthCompleted();
   }
 
   handleEdit(valueEdit: { id: number; value: string }): void {
@@ -71,6 +80,7 @@ export class ListTodoComponent implements OnInit {
     this.todos = [...newTodos];
     this.todoService.completeTodo(id);
     this.getTodos();
+    this.setLengthCompleted();
     this.setCheckAll();
   }
 
@@ -90,5 +100,14 @@ export class ListTodoComponent implements OnInit {
     this.todoService.handleCheckAll(!check);
     this.completedAll = !check;
     this.getTodos();
+    this.setLengthCompleted();
+  }
+
+  handleClearCompleted(): void {
+    const newTodo: Todo[] = this.todos.filter((todo) => !todo.completed);
+    this.todos = [...newTodo];
+    this.todoService.clearCompleted();
+    this.lenghtAllTodo = this.todoService.getTodo().length;
+    this.setCheckAll();
   }
 }

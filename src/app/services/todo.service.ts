@@ -1,5 +1,5 @@
 import { StorageService } from './storage.service';
-import { getRandomId, Todo } from './todo';
+import { getRandomId, Todo } from '../todo';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -54,6 +54,12 @@ export class TodoService {
       }
       return todo;
     });
+    this.storageService.addTodo(newTodos);
+  }
+
+  clearCompleted(): void {
+    const list: Todo[] = this.storageService.getTodos();
+    const newTodos: Todo[] = list.filter((todo) => !todo.completed);
     this.storageService.addTodo(newTodos);
   }
 }

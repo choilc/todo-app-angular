@@ -21,6 +21,8 @@
       (newHandleActive)="handleActive($event)"
       [activeTab]="activeTab"
       [todoCounter]="todos.length"
+      [lengthCompleted]="lengthCompleted"
+      (newHandleClearAll)="handleClearCompleted()"
     ></app-controll-tab>
   </div>
 </div>

@@ -10,4 +10,11 @@
       {{ tab }}
     </div>
   </div>
+  <div
+    class="clear-completed"
+    *ngIf="lengthCompleted > 0"
+    (click)="handleClearAll()"
+  >
+    Clear completed
+  </div>
 </div>

@@ -10,8 +10,10 @@ export class ControllTabComponent implements OnInit {
 
   @Input() activeTab: string = 'all';
   @Input() todoCounter: number = 0;
+  @Input() lengthCompleted: number = 0;
 
   @Output() newHandleActive = new EventEmitter<string>();
+  @Output() newHandleClearAll = new EventEmitter();
 
   constructor() {}
 
@@ -19,5 +21,9 @@ export class ControllTabComponent implements OnInit {
 
   handleActive(tab: string) {
     this.newHandleActive.emit(tab);
+  }
+
+  handleClearAll(): void {
+    this.newHandleClearAll.emit();
   }
 }
