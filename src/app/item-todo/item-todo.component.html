@@ -1,5 +1,10 @@
 <li class="item-todo">
-  <input type="checkbox" [checked]="completed" (change)="handleComplete(id)" />
+  <input
+    class="check-complete"
+    type="checkbox"
+    [checked]="completed"
+    (change)="handleComplete(id)"
+  />
   <div class="todo" (dblclick)="onEdit()">
     <span class="text-todo" [class.completed]="completed" *ngIf="!isEdit">{{
       name

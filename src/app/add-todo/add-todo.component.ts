@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-add-todo',
@@ -6,7 +6,10 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styleUrls: ['./add-todo.component.scss'],
 })
 export class AddTodoComponent implements OnInit {
+  @Input() completedAll: boolean = false;
+
   @Output() newAddTodo = new EventEmitter<string>();
+  @Output() newHandleCheckAll = new EventEmitter<boolean>();
 
   constructor() {}
 
@@ -14,5 +17,9 @@ export class AddTodoComponent implements OnInit {
 
   addTodo(value: string): void {
     this.newAddTodo.emit(value);
+  }
+
+  handleCheckAll(check: boolean): void {
+    this.newHandleCheckAll.emit(check);
   }
 }

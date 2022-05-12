@@ -7,4 +7,10 @@
     autocomplete="off"
     placeholder="What needs to be done?"
   />
+  <input
+    type="checkbox"
+    class="check-all"
+    [checked]="completedAll"
+    (change)="handleCheckAll(completedAll)"
+  />
 </form>

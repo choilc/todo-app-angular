@@ -1,5 +1,9 @@
 <div class="list-wrap">
-  <app-add-todo (newAddTodo)="addTodo($event)"></app-add-todo>
+  <app-add-todo
+    (newAddTodo)="addTodo($event)"
+    [completedAll]="completedAll"
+    (newHandleCheckAll)="handleCheckAll($event)"
+  ></app-add-todo>
 
   <div *ngIf="lenghtAllTodo > 0">
     <ul class="list-todo">

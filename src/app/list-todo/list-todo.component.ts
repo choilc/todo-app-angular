@@ -11,12 +11,18 @@ export class ListTodoComponent implements OnInit {
   todos: Todo[] = [];
   lenghtAllTodo: number = 0;
   activeTab: string = 'all';
+  completedAll: boolean = false;
 
   constructor(private todoService: TodoService) {}
 
   ngOnInit(): void {
     this.getTodos();
     this.lenghtAllTodo = this.todoService.getTodo().length;
+    this.setCheckAll();
+  }
+
+  setCheckAll() {
+    this.completedAll = !this.todos.find((todo) => todo.completed === false);
   }
 
   addTodo(todo: string): void {
@@ -24,6 +30,7 @@ export class ListTodoComponent implements OnInit {
     this.todos.push(newTodo);
     this.todoService.addTodo(todo);
     this.lenghtAllTodo++;
+    this.setCheckAll();
   }
 
   getTodos(): void {
@@ -45,6 +52,7 @@ export class ListTodoComponent implements OnInit {
     this.todos = this.todos.filter((todo) => todo.id !== id);
     this.todoService.deleteTodo(id);
     this.lenghtAllTodo--;
+    this.setCheckAll();
   }
 
   handleEdit(valueEdit: { id: number; value: string }): void {
@@ -61,10 +69,24 @@ export class ListTodoComponent implements OnInit {
     this.todos = [...newTodos];
     this.todoService.completeTodo(id);
     this.getTodos();
+    this.setCheckAll();
   }
 
   handleActive(tab: string) {
     this.activeTab = tab;
+    this.getTodos();
+  }
+
+  handleCheckAll(check: boolean): void {
+    const newTodos = this.todos.map((todo) => {
+      if (todo.completed === check) {
+        return { ...todo, completed: !check };
+      }
+      return todo;
+    });
+    this.todos = [...newTodos];
+    this.todoService.handleCheckAll(!check);
+    this.completedAll = !check;
     this.getTodos();
   }
 }

@@ -47,4 +47,15 @@ export class TodoService {
     });
     this.storageService.addTodo(newTodos);
   }
+
+  handleCheckAll(check: boolean): void {
+    const list: Todo[] = this.storageService.getTodos();
+    const newTodos = list.map((todo) => {
+      if (todo.completed !== check) {
+        return { ...todo, completed: check };
+      }
+      return todo;
+    });
+    this.storageService.addTodo(newTodos);
+  }
 }
