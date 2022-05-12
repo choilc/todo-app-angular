@@ -22,7 +22,9 @@ export class ListTodoComponent implements OnInit {
   }
 
   setCheckAll() {
-    this.completedAll = !this.todos.find((todo) => todo.completed === false);
+    this.completedAll =
+      this.lenghtAllTodo > 0 &&
+      !this.todos.find((todo) => todo.completed === false);
   }
 
   addTodo(todo: string): void {
