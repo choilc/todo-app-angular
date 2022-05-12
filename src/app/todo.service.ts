@@ -8,11 +8,9 @@ import { Injectable } from '@angular/core';
 export class TodoService {
   constructor(private storageService: StorageService) {}
 
-  addTodo(value: string): void {
-    const item: Todo = new Todo(getRandomId(), value, false);
-
+  addTodo(todo: Todo): void {
     const list: Todo[] = this.storageService.getTodos();
-    this.storageService.addTodo([...list, item]);
+    this.storageService.addTodo([...list, todo]);
   }
 
   getTodo(): Todo[] {

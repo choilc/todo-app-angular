@@ -28,7 +28,7 @@ export class ListTodoComponent implements OnInit {
   addTodo(todo: string): void {
     const newTodo = new Todo(getRandomId(), todo, false);
     this.todos.push(newTodo);
-    this.todoService.addTodo(todo);
+    this.todoService.addTodo(newTodo);
     this.lenghtAllTodo++;
     this.setCheckAll();
   }
