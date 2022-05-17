@@ -11,13 +11,7 @@
     }}</span>
     <div class="edit-todo" *ngIf="isEdit">
       <form (submit)="handleEdit(id, editTodo.value); isEdit = false">
-        <input
-          #editTodo
-          type="text"
-          [(ngModel)]="name"
-          name="todo.name"
-          (blur)="isEdit = false"
-        />
+        <input #editTodo type="text" [(ngModel)]="name" name="todo.name" />
       </form>
     </div>
   </div>

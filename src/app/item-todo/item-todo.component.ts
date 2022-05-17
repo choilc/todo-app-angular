@@ -7,6 +7,7 @@ import {
   Output,
   ViewChild,
   ElementRef,
+  Renderer2,
 } from '@angular/core';
 
 @Component({
@@ -27,10 +28,20 @@ export class ItemTodoComponent implements OnInit {
   editTodoElement!: ElementRef<HTMLInputElement>;
 
   isEdit: boolean = false;
+  initName: string = '';
 
-  constructor() {}
+  constructor(private renderer: Renderer2) {
+    this.renderer.listen('window', 'click', (e: Event) => {
+      if (e.target !== this.editTodoElement.nativeElement) {
+        this.isEdit = false;
+        this.name = this.initName;
+      }
+    });
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.initName = this.name;
+  }
 
   onEdit(): void {
     this.isEdit = true;
@@ -40,6 +51,7 @@ export class ItemTodoComponent implements OnInit {
   }
 
   handleEdit(id: number, value: string): void {
+    this.initName = this.name;
     this.newEditTodo.emit({ id, value });
   }
 
